@@ -1,0 +1,10 @@
+{
+	"name": "itppd",
+	"authors": [
+		"Kazuki Komatsu"
+	],
+	"description": "Wrapper of IT++",
+	"copyright": "Copyright © 2018, Kazuki Komatsu",
+	"license": "CC0",
+	"libs": ["itpp"]
+}
