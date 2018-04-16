@@ -1,6 +1,18 @@
 module itppd.base.binary;
 
-import itppd.base.wrapper;
+import itppd.wrapper;
+
+
+enum ITPP_BASE_BINARY =
+q{
+    struct bin
+    {
+        char b;
+    }
+};
+
+
+enum ITPP_BASE_BINARY_W = "";
 
 
 struct Bin

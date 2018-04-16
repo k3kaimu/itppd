@@ -6,5 +6,11 @@
 	"description": "Wrapper of IT++",
 	"copyright": "Copyright © 2018, Kazuki Komatsu",
 	"license": "CC0",
-	"libs": ["itpp"]
+	"libs": ["itpp", "stdc++"],
+	"preBuildCommands": [
+		"g++ -c cppwrapper/itppw/comm/ldpc.cpp"
+	],
+	"sourceFiles": [
+		"ldpc.o"
+	],
 }

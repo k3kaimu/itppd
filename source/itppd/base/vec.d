@@ -6,9 +6,36 @@ import std.conv;
 import std.format;
 import std.range : isOutputRange;
 
+import itppd.wrapper;
 import itppd.base.factory;
 import itppd.base.binary;
-import itppd.base.wrapper;
+
+
+enum ITPP_BASE_VEC =
+q{
+    struct Vec(T)
+    {
+        alias value_type = T;
+
+        int length() const;
+        int set_length(int size, bool copy = false);
+        void zeros();
+        void clear();
+        void ones();
+        void set(const(char)* str);
+        ref const(T) get(int i) const;
+        Vec!T get(int i2, int i2) const;
+        void set(int i, T v);
+
+      package:
+        int datasize;
+        T* data;
+        Factory* factory;
+    }
+};
+
+
+enum ITPP_BASE_VEC_W = "";
 
 
 /++
