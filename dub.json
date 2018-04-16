@@ -8,9 +8,9 @@
 	"license": "CC0",
 	"libs": ["itpp", "stdc++"],
 	"preBuildCommands": [
-		"g++ -c cppwrapper/itppw/comm/ldpc.cpp"
+		"g++ -c cppwrapper/itppw/instantiated.cpp"
 	],
 	"sourceFiles": [
-		"ldpc.o"
+		"instantiated.o"
 	],
 }

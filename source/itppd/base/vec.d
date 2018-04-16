@@ -30,12 +30,27 @@ q{
       package:
         int datasize;
         T* data;
-        Factory* factory;
+        void* factory;
     }
 };
 
 
-enum ITPP_BASE_VEC_W = "";
+enum ITPP_BASE_VEC_W =
+q{
+    void dtor_Vec(ref itpp.Vec!double vec);
+    void dtor_Vec(ref itpp.Vec!(stdcomplex!double) vec);
+    void dtor_Vec(ref itpp.Vec!(int) vec);
+    void dtor_Vec(ref itpp.Vec!(short) vec);
+    void dtor_Vec(ref itpp.Vec!(itpp.bin) vec);
+};
+
+
+/**
+D言語のSliceから生成されたVecを区別するためのタグです．
+このタグはVecのFactoryに格納されます．
+*/
+struct TagOfDSlice {}
+TagOfDSlice TAG_OF_DSLICE;
 
 
 /++
@@ -66,6 +81,17 @@ if(is(T == int) || is(T == short) || is(T == double) || is(T == Complex!double) 
         _impl.data = null;
         _impl.set_length(s);
         _impl.data[0 .. s] = p[0 .. s];
+    }
+
+
+    ~this()
+    {
+        if(_impl.factory !is &TAG_OF_DSLICE)
+            dtor_Vec(_impl);
+
+        _impl.data = null;
+        _impl.datasize = 0;
+        _impl.factory = null;
     }
 
 
@@ -418,6 +444,7 @@ unittest
 }
 
 
+
 /**
 D言語でのスライスT[]をC++側のVec!Tに変換します．
 C++側でdeleteされないようにするため戻り値はconstになっています．
@@ -427,7 +454,7 @@ const(Vec!T) toVec(T)(const(T)[] slice) @trusted
     Vec!T dst;
     dst._impl.data = cast(T*)slice.ptr;
     dst._impl.datasize = slice.length.to!int;
-    dst._impl.factory = null;
+    dst._impl.factory = &TAG_OF_DSLICE;
 
     return dst;
 }

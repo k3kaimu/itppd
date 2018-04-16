@@ -8,3 +8,8 @@ q{
 
 
 enum ITPP_BASE_FACTORY_W = "";
+
+
+import itppd.wrapper;
+
+// class Factory : itpp.Factory {}
